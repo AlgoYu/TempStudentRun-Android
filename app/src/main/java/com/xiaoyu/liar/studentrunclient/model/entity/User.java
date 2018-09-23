@@ -1,31 +1,31 @@
 package com.xiaoyu.liar.studentrunclient.model.entity;
 
 public class User {
-    private String ridgepole;
-    private String dorm;
-    private String connect;
+    private Integer ridgepole;
+    private Integer dorm;
+    private String contact;
 
-    public String getRidgepole() {
+    public Integer getRidgepole() {
         return ridgepole;
     }
 
-    public void setRidgepole(String ridgepole) {
+    public void setRidgepole(Integer ridgepole) {
         this.ridgepole = ridgepole;
     }
 
-    public String getDorm() {
+    public Integer getDorm() {
         return dorm;
     }
 
-    public void setDorm(String dorm) {
+    public void setDorm(Integer dorm) {
         this.dorm = dorm;
     }
 
-    public String getConnect() {
-        return connect;
+    public String getContact() {
+        return contact;
     }
 
-    public void setConnect(String connect) {
-        this.connect = connect;
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 }

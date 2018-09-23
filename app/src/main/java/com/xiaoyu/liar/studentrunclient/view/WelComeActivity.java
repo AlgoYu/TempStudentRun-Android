@@ -4,80 +4,66 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Toast;
-import com.xiaoyu.liar.studentrunclient.R;
-import com.xiaoyu.liar.studentrunclient.model.entity.User;
-import com.xiaoyu.liar.studentrunclient.presenter.IWelComePretersen;
-import com.xiaoyu.liar.studentrunclient.presenter.IWelComePretersenImpl;
 
-public class WelComeActivity extends AppCompatActivity implements IWelComeView, View.OnClickListener {
-    private Spinner spSushelou;
-    private EditText edSushehao;
-    private EditText edShouji;
-    private Button btBaocun;
-    private IWelComePretersen iWelComePretersen;
+import com.xiaoyu.liar.studentrunclient.R;
+import com.xiaoyu.liar.studentrunclient.utils.XUtils;
+import com.zcy.acache.ACache;
+
+public class WelComeActivity extends AppCompatActivity implements View.OnClickListener {
+    private Spinner mSpSushelou;
+    private EditText mEdSushehao;
+    private EditText mEdShouji;
+    private Button mBtBaocun;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        initView();
-        iWelComePretersen = new IWelComePretersenImpl(this);
-        if(iWelComePretersen.isFirstRun(this)!=null && iWelComePretersen.isFirstRun(this)!=null ==true){
-            startActivity(new Intent(this,MainActivity.class));
+        if(ACache.get(App.app).getAsObject("run")!=null && (Boolean) ACache.get(App.app).getAsObject("run")==true){
+            startActivity(new Intent(WelComeActivity.this,MainActivity.class));
+            finish();
         }
-        btBaocun.setOnClickListener(this);
+        initView();
+        mBtBaocun.setOnClickListener(this);
     }
 
     private void initView() {
-        spSushelou = findViewById(R.id.sp_sushelou);
-        edSushehao = findViewById(R.id.ed_sushehao);
-        edShouji = findViewById(R.id.ed_shouji);
-        btBaocun = findViewById(R.id.bt_baocun);
-    }
-
-    @Override
-    public User getUserData() {
-        User user = null;
-        if(TextUtils.isEmpty(edSushehao.getText().toString()) || TextUtils.isEmpty(edShouji.getText().toString())){
-            showToast("请输入完整的信息！");
-        }else{
-            user = new User();
-            user.setRidgepole(spSushelou.getSelectedItem().toString());
-            user.setConnect(edShouji.getText().toString());
-            user.setDorm(edSushehao.getText().toString());
-        }
-        return user;
-    }
-
-    @Override
-    public void cleanEdit() {
-        edShouji.setText("");
-        edSushehao.setText("");
-    }
-
-    @Override
-    public void showToast(String message) {
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+        mSpSushelou = findViewById(R.id.sp_sushelou);
+        mEdSushehao = findViewById(R.id.ed_sushehao);
+        mEdShouji = findViewById(R.id.ed_shouji);
+        mBtBaocun = findViewById(R.id.bt_baocun);
     }
 
     @Override
     public void onClick(View view) {
-        if(TextUtils.isEmpty(edSushehao.getText().toString()) || TextUtils.isEmpty(edShouji.getText().toString())){
-            showToast("请输入完整的信息！");
+        String phone = mEdShouji.getText().toString();
+        String dorm = mEdSushehao.getText().toString();
+        String ridgepole = mSpSushelou.getSelectedItem().toString();
+        if(TextUtils.isEmpty(phone) || TextUtils.isEmpty(dorm) || TextUtils.isEmpty(ridgepole)){
+            XUtils.ShowToast("请输入您的送餐地址完整信息！");
         }else{
-            User user = new User();
-            user.setRidgepole(spSushelou.getSelectedItem().toString());
-            user.setConnect(edShouji.getText().toString());
-            user.setDorm(edSushehao.getText().toString());
-            if(iWelComePretersen.SaveUserData(this,user)){
-                showToast("保存成功！");
-                startActivity(new Intent(this,MainActivity.class));
-                iWelComePretersen.FirstRun(this,true);
+            if(phone.length() != 11 || dorm.length() != 3){
+                XUtils.ShowToast("您填入的信息有误！");
+            }else{
+                ACache.get(App.app).put("ridgepole",ridgepole);
+                ACache.get(App.app).put("dorm",dorm);
+                ACache.get(App.app).put("phone",phone);
+
+                ACache.get(App.app).put("run",true);
+
+                Log.e("宿舍楼:",ACache.get(App.app).getAsString("ridgepole"));
+                Log.e("宿舍号:",ACache.get(App.app).getAsString("dorm"));
+                Log.e("手机号:",ACache.get(App.app).getAsString("phone"));
+
+                XUtils.ShowToast("设置成功！");
+
+                startActivity(new Intent(WelComeActivity.this,MainActivity.class));
+                finish();
             }
         }
     }
