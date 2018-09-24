@@ -85,7 +85,7 @@ public class DingdanFragment extends Fragment {
     }
 
     public void notifiDingdan(){
-        String url = "http://192.168.0.105:8080/Api/OrderByUUID?key=" + ACache.get(App.app).getAsString("miyao") + "&uuid="+ ACache.get(App.app).getAsString("uuid");
+        String url = "http://studentrun.club:8080/xiaoyu/Api/OrderByUUID?key=" + ACache.get(App.app).getAsString("miyao") + "&uuid="+ ACache.get(App.app).getAsString("uuid");
         Log.e("URL",url);
         Request request = new Request.Builder().url(url).get().build();
         mOkHttpClient.newCall(request).enqueue(new Callback() {

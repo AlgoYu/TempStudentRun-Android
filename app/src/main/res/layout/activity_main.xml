@@ -19,7 +19,7 @@
         android:id="@+id/vkkvkv"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/black"
+        android:background="@color/qing"
         app:layout_constraintBottom_toTopOf="@+id/main_tablayout"/>
 
     <android.support.design.widget.TabLayout
@@ -28,7 +28,8 @@
         android:layout_height="55dp"
         app:tabMode="fixed"
         app:tabIndicatorHeight="7dp"
-        app:tabSelectedTextColor="@android:color/holo_blue_dark"
+        app:tabIndicatorColor="@color/colorPrimary"
+        app:tabSelectedTextColor="@color/qing"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1">

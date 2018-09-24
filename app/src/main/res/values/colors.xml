@@ -1,6 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <!--<color name="colorPrimary">#3F51B5</color>-->
+    <color name="colorPrimary">#5FD9CD</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="biaoti">#94B38F</color>
+    <color name="wenzi">#C29880</color>
+    <color name="qinglan">#A3BAC2</color>
+    <color name="huangse">#F5BE33</color>
+
+
+    <!--小清新的夏天 配色-->
+    <color name="qing">#5FD9CD</color>
+    <color name="huang">#EAF786</color>
+    <color name="hong">#FFB5A1</color>
+    <color name="lv">#B8FFB8</color>
+    <color name="lan">#B8F4FF</color>
 </resources>

@@ -83,7 +83,7 @@ public class DingdanAdapter extends RecyclerView.Adapter<DingdanAdapter.DingdanV
                     String requestjson = mGson.toJson(requestTemplate);
                     Log.e("查看:",requestjson);
                     RequestBody requestBody = FormBody.create(MediaType.parse("application/json;charset=utf-8"),requestjson);
-                    Request request = new Request.Builder().url("http://192.168.0.105:8080/Api/Order").delete(requestBody).build();
+                    Request request = new Request.Builder().url("http://studentrun.club:8080/xiaoyu/Api/Order").delete(requestBody).build();
                     mOkHttpClient.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(Call call, IOException e) {

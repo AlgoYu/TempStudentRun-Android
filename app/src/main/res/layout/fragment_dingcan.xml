@@ -9,21 +9,66 @@
     <TextView
         android:id="@+id/v4"
         android:textStyle="bold"
-        android:text="提示:大家只需要在输入框里输入想要的东西，然后点击学长快跑就可以了，真实的APP还在开发中，但由于最近大家下单太多，我们忙不过来，有时候会出现漏单的情况，这只是一个临时为大家方便点餐临时开发的，只要大家下单我们就可以接受订单，可以避免很多漏单！谢谢大家支持我们，我们的群号是：862823096，我们会竭诚为大家提供更好的服务！"
+        android:padding="15dp"
+        android:text="提示:\n\t1、这只是一个临时版本哦~\n\t2、我们的官方群号是 862823096\n\t3、如果配送的地址不是宿舍，可以在输入框写入想要的东西和配送地址哦~\n\t4、现在的版本是0.0.1，如果有使用方面的问题请加入学长快跑官方群反馈，我们竭力为大家提供更优质的服务~谢谢大家的支持！"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
+        android:textColor="@color/hong"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintVertical_bias="0.1"/>
 
+    <Spinner
+        android:id="@+id/sp_l"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+        android:background="@drawable/spiner_style"
+        android:entries="@array/sushelou"
+        android:paddingLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/ed_ss"
+        >
+
+    </Spinner>
+
     <EditText
+        android:id="@+id/ed_ss"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/editext_style"
+        android:hint="输入宿舍号"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:maxLength="3"
+        android:maxLines="1"
+        app:layout_constraintLeft_toRightOf="@id/sp_l"
+        app:layout_constraintRight_toLeftOf="@id/ed_sj"
+        />
+
+    <EditText
+        android:id="@+id/ed_sj"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:background="@drawable/editext_style"
+        android:hint="输入手机号"
+        android:inputType="number"
+        android:paddingLeft="5dp"
+        android:maxLength="11"
+        android:maxLines="1"
+        app:layout_constraintLeft_toRightOf="@id/ed_ss"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <EditText
+        android:background="@color/qing"
         android:hint="在这里输入想要的东西，点学长快跑就可以了哦！"
         android:inputType="textMultiLine"
         android:id="@+id/ed_info"
         android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:padding="20dp"
+        android:layout_height="110dp"
         app:layout_constraintTop_toBottomOf="@+id/v4"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -35,6 +80,7 @@
         android:text="学长快跑"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/button_style"
         app:layout_constraintTop_toBottomOf="@+id/ed_info"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

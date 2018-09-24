@@ -84,12 +84,11 @@ public class MainActivity extends AppCompatActivity{
                 .writeTimeout(5, TimeUnit.SECONDS)//设置写的超时时间
                 .connectTimeout(5, TimeUnit.SECONDS)//设置连接超时时间
                 .build();
-        String url = "ws://192.168.0.105:8080/WebSocketConnection/"+ACache.get(App.app).getAsString("uuid");
+        String url = "ws://studentrun.club:8080/xiaoyu/WebSocketConnection/"+ACache.get(App.app).getAsString("uuid");
         mWebSocketListener = new MyWebSocketListener();
         Request request = new Request.Builder().url(url).build();
         webSocket = okHttpClient.newWebSocket(request,mWebSocketListener);
         flag = true;
-//        okHttpClient.dispatcher().executorService().shutdown();
     }
 
     @Override
@@ -111,6 +110,10 @@ public class MainActivity extends AppCompatActivity{
         if(!flag){
             Request request = webSocket.request();
             webSocket = okHttpClient.newWebSocket(request,mWebSocketListener);
+            Intent intent = new Intent();
+            intent.setAction("liar.xiaoyu.www.studentrun.huidaodingbu");
+            intent.putExtra("action","shuaxin");
+            sendBroadcast(intent);
         }
         super.onResume();
     }
