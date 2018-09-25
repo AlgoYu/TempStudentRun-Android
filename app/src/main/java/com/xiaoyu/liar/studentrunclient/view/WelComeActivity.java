@@ -64,7 +64,7 @@ public class WelComeActivity extends AppCompatActivity implements View.OnClickLi
         if (TextUtils.isEmpty(phone) || TextUtils.isEmpty(dorm) || TextUtils.isEmpty(ridgepole)) {
             XUtils.ShowToast("请输入您的送餐地址完整信息！");
         } else {
-            if (!XUtils.isMobileNO(phone) || dorm.length() != 3) {
+            if (phone.length() < 11 || dorm.length() != 3) {
                 XUtils.ShowToast("您填入的信息有误！");
             } else {
 

@@ -10,7 +10,7 @@
         android:id="@+id/v4"
         android:textStyle="bold"
         android:padding="15dp"
-        android:text="提示:\n\t1、这只是一个临时版本哦~\n\t2、我们的官方群号是 862823096\n\t3、如果配送的地址不是宿舍，可以在输入框写入想要的东西和配送地址哦~\n\t4、现在的版本是0.0.1，如果有使用方面的问题请加入学长快跑官方群反馈，我们竭力为大家提供更优质的服务~谢谢大家的支持！"
+        android:text="提示:\n\t1、这只是一个临时版本哦~\n\t2、我们的官方群号是 862823096\n\t3、如果配送的地址不是宿舍，可以在输入框写入想要的东西和配送地址哦~\n\t4、单份配送费为2元，两份及两份以上，每份1元配送费。\n\t5、现在的版本是0.0.1，如果有使用方面的问题请加入学长快跑官方群反馈，我们竭力为大家提供更优质的服务~谢谢大家的支持！"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textColor="@color/hong"
