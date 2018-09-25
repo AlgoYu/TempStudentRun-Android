@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
 import com.xiaoyu.liar.studentrunclient.model.entity.ResponseTemplate;
 import com.xiaoyu.liar.studentrunclient.sqlite.MySQLite;
 import com.xiaoyu.liar.studentrunclient.utils.XUtils;
@@ -28,6 +29,9 @@ public class App extends Application{
     public void onCreate() {
         super.onCreate();
         app = this;
+
+        //短信验证
+//        MobSDK.init(this);
 
         if(ACache.get(this).getAsObject("save") == null || (Boolean) ACache.get(this).getAsObject("save") == false){
 //            XUtils.copyDatabase(this);

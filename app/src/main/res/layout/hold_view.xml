@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <TextView
         android:textSize="15dp"
@@ -35,8 +35,13 @@
         android:id="@+id/holder_dingdanneirong"
         android:text="订单内容"
         android:inputType="textMultiLine"
-        android:layout_width="wrap_content"
+        android:textColor="@color/qing"
+        android:layout_width="0dp"
+        app:layout_constraintDimensionRatio="12:1"
         android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/holder_dingdanhao"
@@ -45,27 +50,32 @@
         />
     <TextView
         android:id="@+id/holder_dingdanzhuangtai"
-        android:text="配送小哥:还未接单："
+        android:text="配送小哥:还未接单"
+        android:textStyle="bold"
+        android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/holder_dingdanneirong"
+        app:layout_constraintLeft_toLeftOf="@id/holder_dingdanhao"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.05"
-        app:layout_constraintVertical_bias="0.8"/>
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="25dp"
+        />
 
     <Button
         android:id="@+id/holder_quxiaodingdan"
         android:text="取消订单"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/quxiaodingdan_button"
+        android:layout_marginTop="25dp"
         app:layout_constraintLeft_toRightOf="@+id/holder_dingdanzhuangtai"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/holder_dingdanneirong"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
-        app:layout_constraintVertical_bias="0.8"/>
+        app:layout_constraintVertical_bias="1"
+        android:layout_marginBottom="25dp"
+        />
 
     <View
         android:layout_width="match_parent"
@@ -74,7 +84,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:background="@android:color/background_dark"
+        android:background="@color/qing"
         app:layout_constraintVertical_bias="1"
         />
 </android.support.constraint.ConstraintLayout>

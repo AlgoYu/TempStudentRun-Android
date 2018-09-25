@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.xiaoyu.liar.studentrunclient.utils.XUtils;
 import com.xiaoyu.liar.studentrunclient.view.App;
+import com.xiaoyu.liar.studentrunclient.view.MainActivity;
 
 import okhttp3.Response;
 import okhttp3.WebSocket;
@@ -72,6 +73,7 @@ public class MyWebSocketListener extends WebSocketListener{
     @Override
     public void onFailure(WebSocket webSocket, Throwable t, @Nullable Response response) {
         Log.e("WebSocket:","当关闭时有错误的读写的网络消息丢失");
+        MainActivity.flag = false;
     }
 
     public void senServer(String message){

@@ -1,5 +1,9 @@
 package com.xiaoyu.liar.studentrunclient.Adapter;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -39,9 +43,11 @@ public class DingdanAdapter extends RecyclerView.Adapter<DingdanAdapter.DingdanV
     LayoutInflater mLayoutInflater;
     OkHttpClient mOkHttpClient;
     Gson mGson;
+    Context context;
 
-    public DingdanAdapter(LayoutInflater layoutInflater) {
+    public DingdanAdapter(LayoutInflater layoutInflater,Context context) {
         mLayoutInflater = layoutInflater;
+        this.context = context;
         mOkHttpClient = new OkHttpClient();
         mGson = new Gson();
     }
@@ -69,7 +75,7 @@ public class DingdanAdapter extends RecyclerView.Adapter<DingdanAdapter.DingdanV
         holder.dingdanshijian.setText("订单时间："+order.getDatetime());
         holder.dingdanneirong.setText(order.getInfo());
         if(order.getFlag() > 0){
-            holder.dingdanzhuangtai.setText("配送人员："+order.getStaff()+"\t电话:"+order.getPhone());
+            holder.dingdanzhuangtai.setText("配送人员："+order.getStaff()+"\t\t\t\t电话:"+order.getPhone());
             holder.mButton.setVisibility(View.INVISIBLE);
         }else{
             holder.dingdanzhuangtai.setText("配送人员：等待小哥哥接单哦~");
@@ -77,44 +83,70 @@ public class DingdanAdapter extends RecyclerView.Adapter<DingdanAdapter.DingdanV
             holder.mButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    RequestTemplate<Integer> requestTemplate = new RequestTemplate<>();
-                    requestTemplate.setKey(ACache.get(App.app).getAsString("miyao"));
-                    requestTemplate.setData(order.getId());
-                    String requestjson = mGson.toJson(requestTemplate);
-                    Log.e("查看:",requestjson);
-                    RequestBody requestBody = FormBody.create(MediaType.parse("application/json;charset=utf-8"),requestjson);
-                    Request request = new Request.Builder().url("http://studentrun.club:8080/xiaoyu/Api/Order").delete(requestBody).build();
-                    mOkHttpClient.newCall(request).enqueue(new Callback() {
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            MainActivity.activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    XUtils.ShowToast("取消失败！请检查网络环境！");
-                                }
-                            });
-                        }
 
+                    Dialog dialog = new Dialog(context);
+                    View view1 = mLayoutInflater.inflate(R.layout.dialog_queren,null);
+                    dialog.setTitle("确认信息");
+                    dialog.setContentView(view1);
+                    dialog.setCancelable(false);
+                    TextView textView = view1.findViewById(R.id.dialog_message);
+                    textView.setText("确定取消吗？小哥哥也许马上就来了~");
+                    Button queding = view1.findViewById(R.id.dialog_queding);
+                    Button quxiao = view1.findViewById(R.id.dialog_quxiao);
+                    queding.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            final String temp = response.body().string();
-                            MainActivity.activity.runOnUiThread(new Runnable() {
+                        public void onClick(View view) {
+                            RequestTemplate<Integer> requestTemplate = new RequestTemplate<>();
+                            requestTemplate.setKey(ACache.get(MainActivity.activity).getAsString("miyao"));
+                            requestTemplate.setData(order.getId());
+                            String requestjson = mGson.toJson(requestTemplate);
+                            Log.e("查看:",requestjson);
+                            RequestBody requestBody = FormBody.create(MediaType.parse("application/json;charset=utf-8"),requestjson);
+                            Request request = new Request.Builder().url("http://studentrun.club:8080/xiaoyu/Api/Order").delete(requestBody).build();
+                            mOkHttpClient.newCall(request).enqueue(new Callback() {
                                 @Override
-                                public void run() {
-                                    ResponseTemplate<Boolean> message = new Gson().fromJson(temp,new TypeToken<ResponseTemplate<Boolean>>(){}.getType());
-                                    if(message.getData()){
-                                        XUtils.ShowToast("取消成功！");
-                                        Intent intent = new Intent().setAction("liar.xiaoyu.www.studentrun.tiaozhuan");
-                                        MainActivity.activity.sendBroadcast(intent);
-                                    }else{
-                                        XUtils.ShowToast("已经被小哥哥接单了哦！");
-                                        Intent intent = new Intent().setAction("liar.xiaoyu.www.studentrun.tiaozhuan");
-                                        MainActivity.activity.sendBroadcast(intent);
-                                    }
+                                public void onFailure(Call call, IOException e) {
+                                    MainActivity.activity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            XUtils.ShowToast("取消失败！请检查网络环境！");
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+                                    final String temp = response.body().string();
+                                    MainActivity.activity.runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            ResponseTemplate<Boolean> message = new Gson().fromJson(temp,new TypeToken<ResponseTemplate<Boolean>>(){}.getType());
+                                            if(message.getData()){
+                                                XUtils.ShowToast("取消成功！");
+                                                Intent intent = new Intent().setAction("liar.xiaoyu.www.studentrun.tiaozhuan");
+                                                MainActivity.activity.sendBroadcast(intent);
+                                                dialog.dismiss();
+                                            }else{
+                                                dialog.dismiss();
+                                                XUtils.ShowToast("已经被小哥哥接单了哦！");
+                                                Intent intent = new Intent().setAction("liar.xiaoyu.www.studentrun.tiaozhuan");
+                                                MainActivity.activity.sendBroadcast(intent);
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         }
                     });
+                    quxiao.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            dialog.dismiss();
+                        }
+                    });
+
+                    dialog.show();
+
                 }
             });
         }

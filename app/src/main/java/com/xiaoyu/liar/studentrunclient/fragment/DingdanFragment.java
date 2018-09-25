@@ -75,7 +75,7 @@ public class DingdanFragment extends Fragment {
 
     private void initView(View view) {
         mListDingdan = view.findViewById(R.id.list_dingdan);
-        mDingdanAdapter = new DingdanAdapter(getLayoutInflater());
+        mDingdanAdapter = new DingdanAdapter(getLayoutInflater(),getActivity());
         mListDingdan.setAdapter(mDingdanAdapter);
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("liar.xiaoyu.www.studentrun.huidaodingbu");

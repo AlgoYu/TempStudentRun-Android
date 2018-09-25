@@ -6,7 +6,12 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.ConnectivityManager;
+import android.net.Network;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -17,6 +22,7 @@ import com.xiaoyu.liar.studentrunclient.R;
 import com.xiaoyu.liar.studentrunclient.fragment.DingcanFragment;
 import com.xiaoyu.liar.studentrunclient.fragment.DingdanFragment;
 import com.xiaoyu.liar.studentrunclient.service.MyWebSocketListener;
+import com.xiaoyu.liar.studentrunclient.utils.XUtils;
 import com.zcy.acache.ACache;
 
 import java.util.ArrayList;
@@ -37,7 +43,7 @@ public class MainActivity extends AppCompatActivity{
     public static WebSocket webSocket;
     private OkHttpClient okHttpClient;
     private MyWebSocketListener mWebSocketListener;
-    private boolean flag = false;
+    public static boolean flag = false;
 
     private BroadcastReceiver mBroadcastReceiver = new BroadcastReceiver() {
         @Override
@@ -57,9 +63,11 @@ public class MainActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
+        //跳转广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction("liar.xiaoyu.www.studentrun.tiaozhuan");
         this.registerReceiver(mBroadcastReceiver,intentFilter);
+
         activity = this;
     }
 
@@ -101,7 +109,7 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onDestroy() {
         webSocket.close(1000,null);
-        unregisterReceiver(mBroadcastReceiver);
+        this.unregisterReceiver(mBroadcastReceiver);
         super.onDestroy();
     }
 
